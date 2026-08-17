@@ -1,0 +1,364 @@
+// SAVOR Restaurant - Database Schema
+// PostgreSQL with Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ────────────────────────────────────────────────
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+enum OrderStatus {
+  PLACED
+  CONFIRMED
+  PREPARING
+  READY
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+enum OrderType {
+  DELIVERY
+  PICKUP
+  DINE_IN
+}
+
+enum PaymentMethod {
+  CASH_ON_DELIVERY
+  ONLINE
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum TableLocation {
+  INDOOR
+  OUTDOOR
+  BALCONY
+}
+
+enum NotificationType {
+  ORDER_PLACED
+  ORDER_STATUS
+  RESERVATION
+  OFFER
+  ACCOUNT
+  GENERAL
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+// ─── User & Auth ──────────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  phone     String?
+  avatar    String?
+  role      Role     @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  addresses     Address[]
+  cart          Cart?
+  orders        Order[]
+  reservations  Reservation[]
+  reviews       Review[]
+  favorites     Favorite[]
+  notifications Notification[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model Address {
+  id         String  @id @default(cuid())
+  userId     String
+  house      String
+  street     String
+  city       String
+  state      String
+  postalCode String
+  landmark   String?
+  isDefault  Boolean @default(false)
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders Order[]
+
+  @@index([userId])
+}
+
+// ─── Menu ─────────────────────────────────────────────────
+
+model Category {
+  id          String @id @default(cuid())
+  name        String @unique
+  slug        String @unique
+  image       String?
+  description String?
+  sortOrder   Int    @default(0)
+
+  menuItems MenuItem[]
+
+  @@index([slug])
+}
+
+model MenuItem {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String
+  price       Float
+  image       String?
+  categoryId  String
+  isVeg       Boolean  @default(false)
+  rating      Float    @default(0)
+  ratingCount Int      @default(0)
+  isAvailable Boolean  @default(true)
+  prepTime    Int      @default(20) // minutes
+  isFeatured  Boolean  @default(false)
+  isPopular   Boolean  @default(false)
+  ingredients String[] @default([])
+  allergens   String[] @default([])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  category   Category    @relation(fields: [categoryId], references: [id])
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+  reviews    Review[]
+  favorites  Favorite[]
+
+  @@index([categoryId])
+  @@index([slug])
+  @@index([isAvailable])
+  @@index([isFeatured])
+  @@index([isPopular])
+}
+
+// ─── Cart ─────────────────────────────────────────────────
+
+model Cart {
+  id     String @id @default(cuid())
+  userId String @unique
+
+  user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items CartItem[]
+
+  @@index([userId])
+}
+
+model CartItem {
+  id             String @id @default(cuid())
+  cartId         String
+  menuItemId     String
+  quantity       Int    @default(1)
+  customizations Json?  // addons, size, spice level
+
+  cart     Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@unique([cartId, menuItemId])
+  @@index([cartId])
+}
+
+// ─── Orders ───────────────────────────────────────────────
+
+model Order {
+  id            String        @id @default(cuid())
+  orderNumber   String        @unique
+  userId        String
+  status        OrderStatus   @default(PLACED)
+  orderType     OrderType     @default(DELIVERY)
+  subtotal      Float
+  tax           Float
+  deliveryFee   Float         @default(0)
+  discount      Float         @default(0)
+  total         Float
+  couponId      String?
+  addressId     String?
+  notes         String?
+  estimatedTime Int?          // minutes
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  user     User        @relation(fields: [userId], references: [id])
+  coupon   Coupon?     @relation(fields: [couponId], references: [id])
+  address  Address?    @relation(fields: [addressId], references: [id])
+  items    OrderItem[]
+  payment  Payment?
+
+  @@index([userId])
+  @@index([status])
+  @@index([orderNumber])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id             String @id @default(cuid())
+  orderId        String
+  menuItemId     String
+  name           String // snapshot of item name at order time
+  price          Float  // snapshot of price at order time
+  quantity       Int
+  customizations Json?
+
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@index([orderId])
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  orderId       String        @unique
+  method        PaymentMethod
+  status        PaymentStatus @default(PENDING)
+  transactionId String?
+  amount        Float
+  paidAt        DateTime?
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([transactionId])
+}
+
+// ─── Reservations ─────────────────────────────────────────
+
+model Table {
+  id          String        @id @default(cuid())
+  number      Int           @unique
+  capacity    Int
+  isAvailable Boolean       @default(true)
+  location    TableLocation @default(INDOOR)
+
+  reservations Reservation[]
+
+  @@index([number])
+  @@index([isAvailable])
+}
+
+model Reservation {
+  id                String            @id @default(cuid())
+  userId            String
+  tableId           String
+  date              DateTime
+  time              String            // "19:00"
+  guests            Int
+  seatingPreference TableLocation     @default(INDOOR)
+  specialRequest    String?
+  status            ReservationStatus @default(PENDING)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id])
+  table Table @relation(fields: [tableId], references: [id])
+
+  @@index([userId])
+  @@index([tableId])
+  @@index([date])
+  @@index([status])
+}
+
+// ─── Reviews ──────────────────────────────────────────────
+
+model Review {
+  id         String   @id @default(cuid())
+  userId     String
+  menuItemId String
+  orderId    String?
+  rating     Int      // 1-5
+  comment    String?
+  isApproved Boolean  @default(false)
+  helpful    Int      @default(0)
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id])
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@unique([userId, menuItemId, orderId])
+  @@index([menuItemId])
+  @@index([isApproved])
+}
+
+// ─── Favorites ────────────────────────────────────────────
+
+model Favorite {
+  id         String   @id @default(cuid())
+  userId     String
+  menuItemId String
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, menuItemId])
+  @@index([userId])
+}
+
+// ─── Coupons ──────────────────────────────────────────────
+
+model Coupon {
+  id            String       @id @default(cuid())
+  code          String       @unique
+  description   String
+  discountType  DiscountType
+  discountValue Float
+  minOrder      Float        @default(0)
+  maxDiscount   Float?
+  usageLimit    Int?
+  usedCount     Int          @default(0)
+  isActive      Boolean      @default(true)
+  expiresAt     DateTime?
+  createdAt     DateTime     @default(now())
+
+  orders Order[]
+
+  @@index([code])
+  @@index([isActive])
+}
+
+// ─── Notifications ────────────────────────────────────────
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      NotificationType @default(GENERAL)
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+}
