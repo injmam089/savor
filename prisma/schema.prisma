@@ -7,7 +7,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 // ─── Enums ────────────────────────────────────────────────
@@ -92,6 +91,8 @@ model User {
   reviews       Review[]
   favorites     Favorite[]
   notifications Notification[]
+  gameScores    GameScore[]
+  gameProgress  GameProgress?
 
   @@index([email])
   @@index([role])
@@ -362,3 +363,37 @@ model Notification {
   @@index([isRead])
   @@index([createdAt])
 }
+
+// ─── SAVOR RUSH Game Models ──────────────────────────────
+
+model GameScore {
+  id           String   @id @default(cuid())
+  userId       String?
+  playerName   String
+  score        Int
+  levelReached Int      @default(1)
+  ordersServed Int      @default(0)
+  maxCombo     Int      @default(1)
+  coinsEarned  Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([score])
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model GameProgress {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  coins         Int      @default(0)
+  highestScore  Int      @default(0)
+  highestLevel  Int      @default(1)
+  unlockedItems String[] @default([])
+  equippedTheme String   @default("classic")
+  updatedAt     DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
