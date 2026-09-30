@@ -1,307 +1,538 @@
-# 🍽️ SAVOR — Taste Beyond Ordinary
+# 🍽️ SAVOR --- Taste Beyond Ordinary
 
-A premium, full-stack restaurant ordering and management platform built with modern web technologies. Features a stunning dark luxury UI, complete backend with PostgreSQL database, authentication, ordering system, table reservations, and a comprehensive admin dashboard.
+> A premium full-stack restaurant ordering and management platform built
+> with Next.js, TypeScript, PostgreSQL, and Prisma.
 
-![Next.js](https://img.shields.io/badge/Next.js-16-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791)
-![Prisma](https://img.shields.io/badge/Prisma-7-2D3748)
-![Tailwind](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC)
+SAVOR is a modern restaurant platform that combines a customer-facing
+food ordering experience with table reservations, online payments,
+reviews, favorites, notifications, and a complete admin management
+dashboard.
 
----
+The project focuses on a polished user experience, secure application
+architecture, responsive design, and practical restaurant management
+workflows.
+
+------------------------------------------------------------------------
 
 ## ✨ Features
 
-### Customer Features
-- 🏠 **Beautiful Landing Page** — Hero section, featured dishes, chef's specials, customer reviews
-- 🍕 **Interactive Menu** — Browse, search, filter by category/price/veg, sort by rating/price
-- 🔍 **Food Details** — Ingredients, allergens, prep time, reviews, related dishes
-- 🛒 **Shopping Cart** — Add/remove items, quantity management, coupon codes
-- 💳 **Checkout** — Multi-step checkout with address management, order type selection
-- 📦 **Order Tracking** — Real-time-ready status timeline with visual stepper
-- 📅 **Table Reservations** — Date/time/guest selection with availability checking
-- 👤 **User Profile** — Order history, reservations, favorites, addresses, reviews
-- ⭐ **Reviews & Ratings** — Rate and review food items after ordering
-- ❤️ **Favorites** — Save favorite dishes for quick reordering
-- 🔔 **Notifications** — Order updates, reservation confirmations, offers
-- 🎫 **Coupons** — Apply discount codes with server-side validation
+### 👤 Customer Experience
 
-### Admin Dashboard
-- 📊 **Analytics Dashboard** — Revenue, orders, customers, popular dishes with charts
-- 🍽️ **Menu Management** — Full CRUD with image upload, availability, featured/popular toggles
-- 📋 **Order Management** — Status updates, order details, filtering
-- 📅 **Reservation Management** — Confirm, cancel, complete reservations
-- 👥 **User Management** — View all users and their details
-- 🎫 **Coupon Management** — Create, edit, deactivate discount codes
-- 💬 **Review Moderation** — Approve or reject customer reviews
+-   🏠 Premium restaurant landing page
+-   🍽️ Browse and search menu items
+-   🔎 Filter menu items by category and preferences
+-   📋 Detailed food item pages
+-   🛒 Shopping cart with quantity management
+-   🎟️ Coupon and discount support
+-   💳 Checkout and payment flow
+-   📦 Order placement and tracking
+-   🚚 Delivery, pickup, and dine-in order types
+-   📅 Table reservations
+-   ⭐ Food reviews and ratings
+-   ❤️ Favorite dishes
+-   🔔 Notifications
+-   👤 Profile and account management
+-   📍 Saved delivery addresses
+-   📜 Order and reservation history
 
-### Technical Features
-- 🔐 **Secure Authentication** — NextAuth.js with credentials, JWT sessions, bcrypt hashing
-- 🛡️ **Role-Based Access** — Customer and Admin roles with middleware protection
-- 💰 **Server-Side Price Calculation** — Never trusts client-side totals
-- 📱 **Fully Responsive** — Mobile, tablet, desktop with bottom navigation
-- 🌙 **Dark/Light Theme** — Premium dark luxury default with light mode
-- ✨ **Modern UI** — Glassmorphism, gradients, Framer Motion animations
-- 🗄️ **Relational Database** — Full PostgreSQL schema with Prisma ORM
-- 💳 **Payment Ready** — Razorpay integration with development mock mode
-- 📸 **Image Management** — Cloudinary integration with development mock mode
+------------------------------------------------------------------------
 
----
+## 🛠️ Admin Dashboard
 
-## 🛠️ Tech Stack
+SAVOR provides a dedicated administration dashboard for managing the
+restaurant platform.
 
-| Category | Technology |
-|----------|-----------|
-| **Framework** | Next.js 16 (App Router) |
-| **Language** | TypeScript |
-| **UI Library** | React 19 |
-| **Styling** | Tailwind CSS 4 |
-| **Components** | shadcn/ui + Radix UI |
-| **Animations** | Framer Motion |
-| **Icons** | Lucide React |
-| **Charts** | Recharts |
-| **Database** | PostgreSQL |
-| **ORM** | Prisma 7 |
-| **Authentication** | NextAuth.js v5 (Auth.js) |
-| **Validation** | Zod |
-| **Payments** | Razorpay (with mock mode) |
-| **Images** | Cloudinary (with mock mode) |
+### 📊 Dashboard
 
----
+-   Revenue statistics
+-   Order statistics
+-   Customer statistics
+-   Popular menu items
+-   Visual analytics
+-   Restaurant activity overview
 
-## 🚀 Installation
+### 🍔 Menu Management
+
+-   Create menu items
+-   Edit menu items
+-   Delete menu items
+-   Upload food images
+-   Manage categories
+-   Control item availability
+-   Mark items as featured
+-   Mark items as popular
+
+### 📦 Order Management
+
+-   View customer orders
+-   View order details
+-   Update order status
+-   Track order progress
+-   Manage fulfillment type
+
+### 📅 Reservation Management
+
+-   View reservations
+-   Confirm reservations
+-   Cancel reservations
+-   Complete reservations
+-   Manage table availability
+
+### 👥 User Management
+
+-   View registered users
+-   Manage customer information
+-   Role-based access control
+-   Admin account management
+
+### 🎟️ Coupon Management
+
+-   Create discount coupons
+-   Percentage-based discounts
+-   Fixed-amount discounts
+-   Minimum order requirements
+-   Maximum discount limits
+-   Usage limits
+-   Activate or deactivate coupons
+
+### ⭐ Review Management
+
+-   View customer reviews
+-   Approve reviews
+-   Reject reviews
+-   Monitor ratings
+
+------------------------------------------------------------------------
+
+## 🔐 Authentication & Security
+
+-   NextAuth.js authentication
+-   JWT-based sessions
+-   Password hashing with bcrypt
+-   Customer/Admin role separation
+-   Protected admin routes
+-   Protected API routes
+-   Server-side validation
+-   Zod validation schemas
+-   Server-side order calculations
+-   Database relationships and constraints
+
+> Never commit real production credentials or secrets to the repository.
+
+------------------------------------------------------------------------
+
+## 💳 Payment System
+
+SAVOR includes a payment architecture designed to support online and
+offline payments.
+
+Supported payment methods include:
+
+-   💵 Cash on Delivery
+-   💳 Online Payment
+-   💰 Razorpay integration
+-   🧪 Development mock payment mode
+
+------------------------------------------------------------------------
+
+## 📅 Reservation System
+
+Customers can reserve restaurant tables by selecting:
+
+-   Date
+-   Time
+-   Number of guests
+-   Seating preference
+-   Special requests
+
+### Seating Locations
+
+-   Indoor
+-   Outdoor
+-   Balcony
+
+### Reservation Status
+
+``` text
+PENDING
+CONFIRMED
+CANCELLED
+COMPLETED
+```
+
+------------------------------------------------------------------------
+
+## 🍔 Order Management
+
+SAVOR supports:
+
+``` text
+DELIVERY
+PICKUP
+DINE_IN
+```
+
+### Order Lifecycle
+
+``` text
+PLACED
+   ↓
+CONFIRMED
+   ↓
+PREPARING
+   ↓
+READY
+   ↓
+OUT_FOR_DELIVERY
+   ↓
+DELIVERED
+```
+
+------------------------------------------------------------------------
+
+## 🎮 SAVOR RUSH
+
+SAVOR includes a restaurant-themed gamification system called **SAVOR
+RUSH**.
+
+The game system supports:
+
+-   Player scores
+-   Levels
+-   Orders served
+-   Combo tracking
+-   Coins
+-   High scores
+-   Game progress
+-   Unlockable items
+-   Player themes
+
+------------------------------------------------------------------------
+
+## 🎨 UI / UX
+
+SAVOR uses a modern restaurant-focused interface designed for a premium
+digital dining experience.
+
+-   Premium visual design
+-   Responsive layouts
+-   Dark and light themes
+-   Mobile navigation
+-   Glassmorphism elements
+-   Gradients
+-   Smooth animations
+-   Framer Motion transitions
+-   Lucide icons
+-   Accessible UI components
+
+Designed for mobile, laptop, desktop, and large screens.
+
+------------------------------------------------------------------------
+
+## 🧰 Technology Stack
+
+  Category            Technology
+  ------------------- ----------------
+  Framework           Next.js 16
+  Language            TypeScript
+  Frontend            React 19
+  Styling             Tailwind CSS 4
+  UI Components       Radix UI
+  Animations          Framer Motion
+  Icons               Lucide React
+  Charts              Recharts
+  Database            PostgreSQL
+  ORM                 Prisma 7
+  Authentication      NextAuth.js
+  Validation          Zod
+  Password Security   bcrypt
+  Payments            Razorpay
+  Image Management    Cloudinary
+
+------------------------------------------------------------------------
+
+## 🏗️ Application Architecture
+
+``` text
+                         SAVOR
+                           │
+                           ▼
+              ┌────────────────────────┐
+              │      Next.js App       │
+              │    React + TypeScript  │
+              └────────────┬───────────┘
+                           │
+                           ▼
+              ┌────────────────────────┐
+              │       API Routes       │
+              ├────────────────────────┤
+              │ Authentication         │
+              │ Menu & Categories      │
+              │ Cart & Orders          │
+              │ Payments               │
+              │ Reservations           │
+              │ Reviews & Favorites    │
+              │ Notifications          │
+              │ Admin Management       │
+              └────────────┬───────────┘
+                           │
+                           ▼
+              ┌────────────────────────┐
+              │       Prisma ORM       │
+              └────────────┬───────────┘
+                           │
+                           ▼
+              ┌────────────────────────┐
+              │      PostgreSQL        │
+              └────────────────────────┘
+```
+
+------------------------------------------------------------------------
+
+## 📂 Project Structure
+
+``` text
+savor/
+│
+├── prisma/
+│   ├── schema.prisma
+│   └── seed.ts
+│
+├── public/
+│
+├── src/
+│   ├── app/
+│   │   ├── (auth)/
+│   │   ├── admin/
+│   │   ├── api/
+│   │   ├── cart/
+│   │   ├── checkout/
+│   │   ├── menu/
+│   │   ├── orders/
+│   │   ├── profile/
+│   │   └── reservations/
+│   │
+│   ├── components/
+│   ├── hooks/
+│   ├── lib/
+│   ├── providers/
+│   ├── types/
+│   └── validations/
+│
+├── .env.example
+├── next.config.ts
+├── package.json
+├── package-lock.json
+├── postcss.config.mjs
+├── prisma.config.ts
+├── tsconfig.json
+└── README.md
+```
+
+------------------------------------------------------------------------
+
+## 🗄️ Database Architecture
+
+SAVOR uses **PostgreSQL** with **Prisma ORM**.
+
+The database includes entities for:
+
+-   Users
+-   Addresses
+-   Categories
+-   Menu Items
+-   Cart
+-   Cart Items
+-   Orders
+-   Order Items
+-   Payments
+-   Tables
+-   Reservations
+-   Reviews
+-   Favorites
+-   Coupons
+-   Notifications
+-   Game Scores
+-   Game Progress
+
+------------------------------------------------------------------------
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+
-- PostgreSQL 14+ (local or cloud)
-- npm or yarn
 
-### 1. Clone & Install
+-   Node.js 18 or newer
+-   PostgreSQL 14 or newer
+-   npm
 
-```bash
+### 1. Clone the Repository
+
+``` bash
+git clone https://github.com/injmam089/savor.git
 cd savor
+```
+
+### 2. Install Dependencies
+
+``` bash
 npm install
 ```
 
-### 2. Environment Variables
+### 3. Configure Environment Variables
 
-Copy the example environment file:
+Create a `.env` file:
 
-```bash
-cp .env.example .env
-```
+``` env
+DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/savor"
 
-Edit `.env` with your values:
-
-```env
-# Database (REQUIRED)
-DATABASE_URL="postgresql://user:password@localhost:5432/savor?schema=public"
-
-# Auth (REQUIRED)
-NEXTAUTH_SECRET="generate-with: openssl rand -base64 32"
-NEXTAUTH_URL="http://localhost:3000"
+AUTH_SECRET="your-auth-secret"
 AUTH_TRUST_HOST=true
 
-# Cloudinary (OPTIONAL - app works without these)
+NEXTAUTH_URL="http://localhost:3000"
+
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your-cloud-name"
 CLOUDINARY_API_KEY="your-api-key"
 CLOUDINARY_API_SECRET="your-api-secret"
 
-# Razorpay (OPTIONAL - app works without these using mock mode)
-NEXT_PUBLIC_RAZORPAY_KEY_ID="your-razorpay-key-id"
-RAZORPAY_KEY_SECRET="your-razorpay-key-secret"
+NEXT_PUBLIC_RAZORPAY_KEY_ID="your-razorpay-key"
+RAZORPAY_KEY_SECRET="your-razorpay-secret"
 ```
 
-### 3. Database Setup
+### 4. Create the Database
 
-Create a PostgreSQL database:
+Create a PostgreSQL database named:
 
-```sql
-CREATE DATABASE savor;
+``` text
+savor
 ```
 
-Push the Prisma schema to your database:
+### 5. Push the Prisma Schema
 
-```bash
+``` bash
 npm run db:push
 ```
 
-### 4. Seed Database
+### 6. Seed Sample Data
 
-Populate with sample data (20+ menu items, users, orders, etc.):
-
-```bash
+``` bash
 npm run db:seed
 ```
 
-### 5. Run Development Server
+### 7. Start the Development Server
 
-```bash
+``` bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) 🎉
+Open `http://localhost:3000`.
 
----
+------------------------------------------------------------------------
 
-## 🔑 Demo Accounts
+## 📜 Available Scripts
 
-| Role | Email | Password |
-|------|-------|----------|
-| **Admin** | admin@savor.com | admin123 |
-| **Customer** | priya@example.com | customer123 |
-| **Customer** | rahul@example.com | customer123 |
+  Command                Description
+  ---------------------- -------------------------------------
+  `npm run dev`          Start the development server
+  `npm run build`        Build the production application
+  `npm run start`        Start the production server
+  `npm run lint`         Run ESLint
+  `npm run db:push`      Push Prisma schema to the database
+  `npm run db:migrate`   Create and run a database migration
+  `npm run db:seed`      Seed sample database data
+  `npm run db:studio`    Open Prisma Studio
+  `npm run db:reset`     Reset and reseed the database
 
----
+------------------------------------------------------------------------
 
-## 📁 Project Architecture
+## 🧪 Demo Accounts
 
-```
-savor/
-├── prisma/
-│   ├── schema.prisma          # Database schema (16 models)
-│   └── seed.ts                # Seed data
-├── src/
-│   ├── app/
-│   │   ├── (auth)/            # Login & Register pages
-│   │   ├── admin/             # Admin dashboard (8 pages)
-│   │   ├── api/               # API routes (28+ endpoints)
-│   │   ├── cart/              # Shopping cart
-│   │   ├── checkout/          # Checkout flow
-│   │   ├── menu/              # Menu & food details
-│   │   ├── orders/            # Order history & tracking
-│   │   ├── profile/           # User profile
-│   │   ├── reservations/      # Table reservations
-│   │   ├── layout.tsx         # Root layout with providers
-│   │   └── page.tsx           # Home page
-│   ├── components/
-│   │   ├── ui/                # shadcn/ui components (20)
-│   │   ├── layout/            # Header, Footer, Sidebar, Mobile Nav
-│   │   ├── menu/              # Food card, Add to cart button
-│   │   └── shared/            # Empty state, Skeleton, Confirm dialog, etc.
-│   ├── hooks/                 # Custom React hooks
-│   ├── lib/                   # Core utilities, auth, Prisma, integrations
-│   ├── providers/             # React context providers
-│   ├── types/                 # TypeScript type definitions
-│   └── validations/           # Zod validation schemas
-├── .env.example
-├── next.config.ts
-└── package.json
-```
+If the seed script creates the demo users:
 
----
+  Role       Email                 Password
+  ---------- --------------------- ---------------
+  Admin      `admin@savor.com`     `admin123`
+  Customer   `priya@example.com`   `customer123`
+  Customer   `rahul@example.com`   `customer123`
 
-## 🔌 API Overview
+> These credentials are intended only for local/demo environments.
 
-| Endpoint | Methods | Description |
-|----------|---------|-------------|
-| `/api/auth/[...nextauth]` | GET, POST | Authentication (NextAuth) |
-| `/api/auth/register` | POST | User registration |
-| `/api/menu` | GET | List menu items (with filtering) |
-| `/api/menu/[id]` | GET | Single menu item details |
-| `/api/categories` | GET | All food categories |
-| `/api/cart` | GET, DELETE | User's cart |
-| `/api/cart/items` | POST | Add item to cart |
-| `/api/cart/items/[id]` | PATCH, DELETE | Update/remove cart item |
-| `/api/orders` | GET, POST | Orders (list / create) |
-| `/api/orders/[id]` | GET | Order details |
-| `/api/reservations` | GET, POST | Reservations (list / create) |
-| `/api/reservations/[id]` | PATCH | Cancel reservation |
-| `/api/tables` | GET | Available tables |
-| `/api/reviews` | GET, POST | Reviews |
-| `/api/favorites` | GET, POST | Toggle favorites |
-| `/api/coupons/validate` | POST | Validate coupon code |
-| `/api/notifications` | GET, PATCH | User notifications |
-| `/api/users/profile` | GET, PATCH | User profile |
-| `/api/users/addresses` | GET, POST | User addresses |
-| `/api/users/addresses/[id]` | PATCH, DELETE | Manage address |
-| `/api/payments/create-order` | POST | Razorpay order creation |
-| `/api/payments/verify` | POST | Payment verification |
-| `/api/admin/analytics` | GET | Dashboard analytics |
-| `/api/admin/menu` | POST | Create menu item |
-| `/api/admin/menu/[id]` | PATCH, DELETE | Update/delete menu item |
-| `/api/admin/orders/[id]` | PATCH | Update order status |
-| `/api/admin/reservations/[id]` | PATCH | Update reservation status |
-| `/api/admin/users` | GET | List all users |
-| `/api/admin/coupons` | GET, POST | List/create coupons |
-| `/api/admin/coupons/[id]` | PATCH, DELETE | Update/deactivate coupon |
-| `/api/admin/reviews` | GET | List all reviews |
-| `/api/admin/reviews/[id]` | PATCH | Approve/reject review |
+------------------------------------------------------------------------
 
----
+## 📸 Screenshots
 
-## 🗄️ Database Models
+Recommended screenshot structure:
 
-- **User** — Customers and admins with hashed passwords
-- **Address** — User delivery addresses
-- **Category** — Menu categories (8 default)
-- **MenuItem** — Food items with pricing, ingredients, allergens
-- **Cart / CartItem** — Shopping cart per user
-- **Order / OrderItem** — Orders with item snapshots
-- **Payment** — Payment records (COD / Online)
-- **Table** — Restaurant tables with capacity/location
-- **Reservation** — Table reservations with status workflow
-- **Review** — Customer reviews with moderation
-- **Favorite** — User's favorite menu items
-- **Coupon** — Discount codes with validation rules
-- **Notification** — User notifications
-
----
-
-## 📝 Available Scripts
-
-```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run db:push      # Push schema to database
-npm run db:migrate   # Run Prisma migrations
-npm run db:seed      # Seed database with sample data
-npm run db:studio    # Open Prisma Studio
-npm run db:reset     # Reset database and re-seed
+``` text
+docs/
+├── home.png
+├── menu.png
+├── food-details.png
+├── cart.png
+├── checkout.png
+├── reservations.png
+├── orders.png
+└── admin-dashboard.png
 ```
 
----
+Example:
 
-## 🏗️ Build for Production
-
-```bash
-npm run build
-npm run start
+``` markdown
+![SAVOR Home](docs/home.png)
 ```
 
----
+------------------------------------------------------------------------
 
-## 📋 Seed Data Included
+## 🔮 Future Improvements
 
-- **22 menu items** across 8 categories with realistic Indian pricing (₹)
-- **3 users** (1 admin, 2 customers)
-- **10 tables** (indoor, outdoor, balcony)
-- **4 coupons** (including expired one for testing)
-- **3 sample orders** with different statuses
-- **2 reservations**
-- **5 reviews**
-- **5 favorites**
-- **5 notifications**
+-   Real-time order tracking
+-   Advanced restaurant analytics
+-   Multi-restaurant support
+-   Delivery partner management
+-   Push notifications
+-   Personalized food recommendations
+-   Loyalty and rewards program
+-   Expanded SAVOR RUSH gameplay
+-   Production payment configuration
+-   Automated testing
+-   CI/CD integration
+-   Performance optimization
 
----
+------------------------------------------------------------------------
 
-## 🔒 Security Measures
+## 🎯 Project Goals
 
-- ✅ Password hashing with bcrypt (12 rounds)
-- ✅ JWT-based session management
-- ✅ Role-based access control (middleware + API)
-- ✅ Server-side input validation (Zod)
-- ✅ Server-side price/total calculation
-- ✅ Protected admin routes (middleware)
-- ✅ Safe database queries through Prisma
-- ✅ Environment variables for secrets
-- ✅ No hardcoded credentials
-- ✅ CSRF protection via NextAuth
+SAVOR demonstrates practical full-stack development through:
 
----
+-   Full-stack Next.js development
+-   REST API development
+-   Database design
+-   Prisma ORM
+-   Authentication and authorization
+-   Role-based access control
+-   Payment integration
+-   Form validation
+-   Order management
+-   Reservation management
+-   Admin dashboard development
+-   Responsive UI development
+-   Modern React architecture
+
+------------------------------------------------------------------------
+
+## 👨‍💻 Author
+
+**Injmam**
+
+BCA Student \| Cybersecurity & Software Development
+
+GitHub: https://github.com/injmam089
+
+------------------------------------------------------------------------
 
 ## 📄 License
 
-This project is built for educational purposes as a full-stack portfolio/university project.
+This project is licensed under the MIT License.
+
+------------------------------------------------------------------------
+
+⭐ If you find SAVOR interesting, consider giving the repository a star.
